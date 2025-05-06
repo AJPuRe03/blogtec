@@ -21,8 +21,15 @@ def add_post():
         db.session.add(new_post)
         db.session.commit()
 
-        return redirect(url_for('index'))
+        return redirect(url_for('posts.listar_posts'))
     
     #Aqui sigue si es GET
     categories = Category.query.all()
     return render_template('posts/crear_post.html', categories=categories)
+
+@posts_bp.route('/delete/<int:id>')
+def delete_post(id):
+    post = Post.query.get_or_404(id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('posts.listar_posts'))
