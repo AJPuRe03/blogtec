@@ -33,3 +33,16 @@ def delete_post(id):
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for('posts.listar_posts'))
+
+@posts_bp.route('/edit/<int:id>', methods=['GET', 'POST'])
+def update_post(id):
+    post = Post.query.get_or_404(id)
+    if request.method == 'POST':
+        post.title = request.form['title']
+        post.content = request.form['content']
+        post.category_id = request.form.get('category_id')
+        db.session.commit()
+        return redirect(url_for('posts.listar_posts'))
+
+    categories = Category.query.all()
+    return render_template('posts/edit_post.html', post=post, categories=categories)
