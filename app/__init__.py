@@ -22,12 +22,14 @@ from app.models import Category
 
 #Importar y registrar blueprints
 from app.routes.post import posts_bp
+from app.routes.category import categories_bp
 
 # Crear las tablas si no existen
 with app.app_context():
     db.create_all()
 
 app.register_blueprint(posts_bp, url_prefix='/posts')
+app.register_blueprint(categories_bp, url_prefix='/categorias')
 
 #Ruta principal home
 @app.route('/')
