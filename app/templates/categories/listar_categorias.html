@@ -2,6 +2,7 @@
 {% block title %}Categorías{% endblock %}
 {% block content %}
 <h1 class="title">Categorías</h1>
+<a href="{{ url_for('categories.add_categoria') }}" class="button is-primary">Nueva categoría</a>
 <table class="table is-fullwidth">
     <thead>
         <tr>
