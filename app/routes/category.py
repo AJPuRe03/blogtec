@@ -29,3 +29,13 @@ def delete_categoria(id):
     db.session.delete(category)
     db.session.commit()
     return redirect(url_for('categories.listar_categorias'))
+
+@categories_bp.route('/update/<int:id>', methods=['GET', 'POST'])
+def update_categoria(id):
+    category = Category.query.get_or_404(id)
+    if request.method == 'POST':
+        category.name = request.form['name']
+        db.session.commit()
+        return redirect(url_for('categories.listar_categorias'))
+
+    return render_template('categories/update_categoria.html', category=category)
