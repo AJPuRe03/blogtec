@@ -22,3 +22,10 @@ def add_categoria():
     
     categories = Category.query.all()
     return render_template('categories/crear_categoria.html', categories=categories)
+
+@categories_bp.route('/delete/<int:id>')
+def delete_categoria(id):
+    category = Category.query.get_or_404(id)
+    db.session.delete(category)
+    db.session.commit()
+    return redirect(url_for('categories.listar_categorias'))
